@@ -1,11 +1,57 @@
 <template>
-  <div id="app">
-    <div id="nav">
- 
-    </div>
-    <router-view/>
+  <div class="wrapper">
+    <header>
+      <div class="title">My personal costs</div>
+    </header>
+    <main>
+      <addpayment @addpayment="addPayData" />
+      <payment :items="paymentsList" />
+    </main>
   </div>
 </template>
+<script>
+import payment from "./components/payment.vue";
+import addpayment from "./components/addPayment.vue";
+
+export default {
+  components: { payment, addpayment },
+  name: "App",
+  data() {
+    return {
+      show: true,
+      paymentsList: [],
+    };
+  },
+  methods: {
+    addPayData(data) {
+      this.paymentsList.push(data)
+    },
+    fetchData() {
+      return [
+        {
+          date: "28.03.2020",
+          category: "Food",
+          value: 169,
+        },
+        {
+          date: "24.03.2020",
+          category: "Transport",
+          value: 360,
+        },
+        {
+          date: "24.03.2020",
+          category: "Food",
+          value: 532,
+        },
+      ];
+    },
+  },
+  created() {
+    this.paymentsList = this.fetchData();
+  },
+};
+</script>
+
 
 <style lang="scss">
 #app {
