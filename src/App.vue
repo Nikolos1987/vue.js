@@ -12,6 +12,7 @@
 <script>
 import payment from "./components/payment.vue";
 import addpayment from "./components/addPayment.vue";
+import {mapMutations} from 'vuex' 
 
 export default {
   components: { payment, addpayment },
@@ -23,6 +24,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setPaymentListData"]),
     addPayData(data) {
       this.paymentsList.push(data)
     },
@@ -47,7 +49,8 @@ export default {
     },
   },
   created() {
-    this.paymentsList = this.fetchData();
+   this.setPaymentListData(this.fetchData())
+  //  this.$store.commit('setPaymentListData',this.fetchData())
   },
 };
 </script>
