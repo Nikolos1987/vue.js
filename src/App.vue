@@ -2,10 +2,14 @@
   <div class="wrapper">
     <header>
       <div class="title">My personal costs</div>
+   
     </header>
     <main>
+          
       <addpayment @addpayment="addPayData" />
+     
       <payment :items="paymentsList" />
+       <div class="total" v-if="total"> total {{total}}</div>
     </main>
   </div>
 </template>
@@ -20,11 +24,17 @@ export default {
   data() {
     return {
       show: true,
-      paymentsList: [],
+  
     };
   },
+  computed:{
+
+ total(){
+    return this.$store.getters.getPaymentLIstAll
+ }
+  },
   methods: {
-    ...mapMutations(["setPaymentListData"]),
+    ...mapMutations("setPaymentListData"),
     addPayData(data) {
       this.paymentsList.push(data)
     },
@@ -49,8 +59,8 @@ export default {
     },
   },
   created() {
-   this.setPaymentListData(this.fetchData())
-  //  this.$store.commit('setPaymentListData',this.fetchData())
+ 
+   this.$store.commit('setPaymentListData',this.fetchData())
   },
 };
 </script>

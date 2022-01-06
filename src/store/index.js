@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    paymentsList: []
+    paymentsList:[]
   },
   mutations: {
     setPaymentListData(state, payload) {
@@ -15,7 +15,7 @@ export default new Vuex.Store({
   getters: {
     getPaymentLIst: (state) => {
       return state.paymentsList.reduce((acc, cur) => acc + cur.value, 0)
-    },
+       },
     getPaymentLIstAll: state => state.paymentsList,
   }
 })
