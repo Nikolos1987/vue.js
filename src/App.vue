@@ -4,31 +4,28 @@
       <div class="title">My personal costs</div>
    
     </header>
-    <main>
-          
+    <main>          
       <addpayment @addpayment="addPayData" />
-     
       <payment :items="paymentsList" />
-       <div class="total" v-if="total"> total {{total}}</div>
+       <!-- <div class="total" v-if="total"> total {{total}}</div> -->
     </main>
   </div>
 </template>
 <script>
 import payment from "./components/payment.vue";
 import addpayment from "./components/addPayment.vue";
-import {mapMutations} from 'vuex' 
+import {mapMutations,mapGetters} from 'vuex' 
 
 export default {
   components: { payment, addpayment },
   name: "App",
   data() {
     return {
-      show: true,
-  
+      show: true,  
     };
   },
   computed:{
-
+...mapGetters({paymentsList:"getPaymentLIstAll"}),  
  total(){
     return this.$store.getters.getPaymentLIstAll
  }
@@ -58,8 +55,7 @@ export default {
       ];
     },
   },
-  created() {
- 
+  created() { 
    this.$store.commit('setPaymentListData',this.fetchData())
   },
 };

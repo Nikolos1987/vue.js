@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "addform",
   data() {
@@ -17,22 +18,24 @@ export default {
     };
   },
   computed: {
-      getCurrentDate(){
-          const today=new Date()
-          const d=today.getDate()
-          const m=today.getMonth()+1
-          const y=today.getFullYear() 
-          return`${d}.${m}.${y}`
-      }
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${d}.${m}.${y}`;
+    },
   },
   methods: {
+    ...mapMutations(["addList"]),
     onclick() {
       const data = {
-          date:this.date||this.getCurrentDate,
-          category:this.category,
+        date: this.date || this.getCurrentDate,
+        category: this.category,
         value: this.value,
-              };
-        this.$emit("addpayment",data)      
+      };
+      this.addList(data);
+      // this.$emit("addpayment", data);
     },
   },
 };
