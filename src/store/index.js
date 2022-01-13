@@ -27,7 +27,7 @@ export default new Vuex.Store({
      return new Promise(resolv=>{
        setTimeout(()=>{
          const items=[]
-         for(let i=1;i<101;i++){
+         for(let i=1;i<1;i++){
            items.push({
             date: '28.03.2020',
             category: 'Food',

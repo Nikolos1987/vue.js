@@ -1,27 +1,33 @@
 <template>
   <div class="wrapper">
     <header>
+      <router-link to="/Dashboard">добавить платеж категории Food с ценой 200</router-link> /
+       <router-link to="/notFound">добавить платеж категории Transport с ценой 50</router-link>
+
+      <a href="#Dashboard"></a>
       <div class="title">My personal costs</div>
-   
     </header>
-    <main>          
+    <main>
+     <router-view/>
       <addpayment @addpayment="addPayData" />
       <payment :items="paymentsList" />
-       <!-- <div class="total" v-if="total"> total {{total}}</div> -->
+      <!-- <div class="total" v-if="total"> total {{total}}</div> -->
     </main>
   </div>
 </template>
 <script>
+
 import payment from "./components/payment.vue";
 import addpayment from "./components/addPayment.vue";
 import {mapMutations,mapGetters} from 'vuex' 
 
 export default {
-  components: { payment, addpayment },
+  components: { payment, addpayment, },
   name: "App",
   data() {
     return {
-      show: true,  
+      show: true, 
+      page :""
     };
   },
   computed:{
@@ -30,8 +36,12 @@ export default {
     return this.$store.getters.getPaymentLIstAll
  }
   },
+  
   methods: {
     ...mapMutations("setPaymentListData"),
+    setPage(){
+      this.page = location.hash.slice(1)
+    },
     addPayData(data) {
       this.paymentsList.push(data)
     },
@@ -55,18 +65,27 @@ export default {
       ];
     },
   },
+ mounted (){
+   this.setPage()
+  window.addEventListener('hashchange', () => {
+      this.setPage()
+    })
+
+   
+ },
+  
   created() { 
     this.$store.dispatch('fetchData')
    this.$store.commit('setPaymentListData',this.fetchData())
   },
+ 
 };
 </script>
 
 
 <style lang="scss">
-.title{
+.title {
   font-size: 20px;
-
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
