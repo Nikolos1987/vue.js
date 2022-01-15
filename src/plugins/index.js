@@ -4,14 +4,14 @@ export default {
         if (this.installed) {
             return
         }
-
         this.installed = true
         Vue.prototype.$modal = {
-            EventBus:new Vue(),
-            show(name,settings) {
-         debugger
-             this.EventBus.$emit("show",{name,settings})
-       
+            EventBus: new Vue(),
+            show(name, settings) {      
+         
+         
+                this.EventBus.$emit("show", { name, settings })
+
             },
 
             hide() {

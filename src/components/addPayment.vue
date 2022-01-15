@@ -1,0 +1,43 @@
+<template>
+  <div class="payment">
+    <input placeholder="date" v-model="date" />
+    <input placeholder="categoty" v-model="category" />
+    <input placeholder="value" type="number" v-model.number="value" />
+    <button @click="onclick">save</button>
+  </div>
+</template>
+<script>
+import { mapMutations } from "vuex";
+export default {
+  name: "addform",
+  data() {
+    return {
+      date: "",
+      category: "",
+      value: "",
+    };
+  },
+  computed: {
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${d}.${m}.${y}`;
+    },
+  },
+  methods: {
+    ...mapMutations(["addList"]),
+    onclick() {
+      const data = {
+        date: this.date || this.getCurrentDate,
+        category: this.category,
+        value: this.value,
+      };
+      this.addList(data);
+      // this.$emit("addpayment", data);
+      
+    },
+  },
+};
+</script>

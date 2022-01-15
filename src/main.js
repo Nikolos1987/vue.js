@@ -5,7 +5,7 @@ import store from './store'
 import modal from './plugins'
 
 Vue.config.productionTip = false
-Vue.use(modal)
+Vue.use(modal);
 new Vue({
   router,
   store,

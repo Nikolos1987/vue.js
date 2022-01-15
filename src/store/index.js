@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -5,14 +6,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    paymentsList: []
   },
   mutations: {
+    setPaymentListData(state, payload) {
+      state.paymentsList = payload
+    },
+    addList(state, payload) {
+      state.paymentsList.push(payload)
+    }
+  },
+  getters: {
+    getPaymentLIst: (state) => {
+      return state.paymentsList.reduce((acc, cur) => acc + cur.value, 0)
+    },
+    getPaymentLIstAll: state => state.paymentsList,
   },
   actions: {
-<<<<<<< Updated upstream
-  },
-  modules: {
-=======
     fetchData({commit}){
      return new Promise(resolv=>{
        setTimeout(()=>{
@@ -25,10 +35,11 @@ export default new Vuex.Store({
            })
          }
          resolv(items);
-       },1000)
+       },2000)
      }).then(res=>commit('setPaymentListData',res))
     }
 
->>>>>>> Stashed changes
   }
 })
+
+

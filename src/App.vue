@@ -1,68 +1,61 @@
 <template>
-<<<<<<< Updated upstream
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
-</template>
-=======
   <div class="wrapper">
     <header>
-      <router-link to="/Dashboard">добавить платеж категории Food с ценой 200</router-link> /
-       <router-link to="/notFound">добавить платеж категории Transport с ценой 50</router-link>
- 
+      <router-link to="/Dashboard"
+        >добавить платеж категории Food с ценой 200</router-link
+      >
+      /
+      <router-link to="/notFound"
+        >добавить платеж категории Transport с ценой 50</router-link
+      >
 
       <a href="#Dashboard"></a>
       <div class="title">My personal costs</div>
     </header>
     <main>
-     <router-view/>
-      <!-- <addpayment @addpayment="addPayData" /> -->
+      <router-view />
+<modalwindow v-if="addFormShow" :settings="settings"/>
       <payment :items="paymentsList" />
-      <!-- <div class="total" v-if="total"> total {{total}}</div> -->
-     <modalwindow :settings="settings" v-if="componentName"  />
-      <button @click="openmodal">add new cost+</button>
+     
+      
     </main>
   </div>
 </template>
 <script>
-
+import modalwindow from "./components/modalwindowform.vue"
 import payment from "./components/payment.vue";
+import { mapMutations, mapGetters } from "vuex";
 
-import {mapMutations,mapGetters} from 'vuex';
-import modalwindow from "./components/ModalWindowAddPaymentForm.vue"
 
 
 export default {
-  components: { payment,modalwindow },
+  components: { payment,modalwindow},
   name: "App",
   data() {
     return {
-      show: true, 
-      page :"",
-      addFormShow:false,
-      settings: {},
+      show: true,
+      page: "",
+      settings: {
+  
+      },
+  addFormShow:true,
       componentName:""
     };
   },
-  computed:{
-...mapGetters({paymentsList:"getPaymentLIstAll"}),  
- total(){
-    return this.$store.getters.getPaymentLIstAll
- }
+  computed: {
+    ...mapGetters({ paymentsList: "getPaymentLIstAll" }),
+    total() {
+      return this.$store.getters.getPaymentLIstAll;
+    },
   },
-  
+
   methods: {
-    
     ...mapMutations("setPaymentListData"),
-    setPage(){
-      this.page = location.hash.slice(1)
+    setPage() {
+      this.page = location.hash.slice(1);
     },
     addPayData(data) {
-      this.paymentsList.push(data)
+      this.paymentsList.push(data);
     },
     fetchData() {
       return [
@@ -83,46 +76,45 @@ export default {
         },
       ];
     },
-      openmodal(){
-        this.$modal.show('dashboard',{content:"adPaymentform"},{header:"add new cost"})
-      },
-      shows(data){
-        console.log(data)
-        debugger
-  
+    OnShow(name,settings){
 
+     this.componentName=name;
+     this.settings=settings
+      
 
-      },
-      closed(){
-       this.settings= {},
+    },
+    onClosed(){
+      debugger
+      this.settings={}
       this.componentName=""
-
-      },
-
-  },
- mounted (){
-   this.setPage()
-   this.$modal.EventBus.$on('show',this.shows())
-   this.$modal.EventBus.$on('close',this.closed())
- },
- beforeDestroy(){
-   this.$modal.EventBus.$off('show')
-   this.$modal.EventBus.$off('close')
- },
-  
-  created() { 
-    
- 
-  this.$store.dispatch('fetchData')
+    },
 
   },
- 
+  mounted() {
+    this.$modal.EventBus.$on("show",this.OnShow);
+    this.$modal.EventBus.$on("close",this.onClosed);
+
+
+    this.setPage();
+  },
+  beforeDestroy(){
+     this.$modal.EventBus.$off("show");
+    this.$modal.EventBus.$off("close");
+
+  },
+
+  created() {
+    this.$store.dispatch("fetchData");
+    this.$store.commit("setPaymentListData", this.fetchData());
+  },
 };
 </script>
 
->>>>>>> Stashed changes
 
 <style lang="scss">
+.title {
+  font-size: 20px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -142,14 +134,5 @@ export default {
       color: #42b983;
     }
   }
-}
-.res{
-  color:red
-  
-}
-.wrappe{
-    background:blue;
-    z-index: 100;
- 
 }
 </style>
