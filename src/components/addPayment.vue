@@ -36,6 +36,7 @@ export default {
       };
       this.addList(data);
       // this.$emit("addpayment", data);
+      
     },
   },
 };

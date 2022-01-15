@@ -9,7 +9,7 @@
     </header>
     <main>
      <router-view/>
-      <addpayment @addpayment="addPayData" />
+ 
       <payment :items="paymentsList" />
       <!-- <div class="total" v-if="total"> total {{total}}</div> -->
     </main>
@@ -18,11 +18,11 @@
 <script>
 
 import payment from "./components/payment.vue";
-import addpayment from "./components/addPayment.vue";
+
 import {mapMutations,mapGetters} from 'vuex' 
 
 export default {
-  components: { payment, addpayment, },
+  components: { payment,},
   name: "App",
   data() {
     return {

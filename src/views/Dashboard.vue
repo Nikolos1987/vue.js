@@ -1,12 +1,20 @@
 <template>
-    <div>
-        <button @click="click">добавить платеж категории Food с ценой 200</button>
+    <div class="wrapper">
+      <header><button @click="click">добавить платеж категории Food с ценой 200</button></header>
+      <main>
+            <addpayment @addpayment="addPayData" />
+      <payment :items="paymentsList" />
+      </main>
+        
+
     </div>
 </template>
 <script>
 import { mapMutations } from "vuex";
-
+import payment from "../components/payment.vue";
+import addpayment from "../components/addPayment.vue";
 export default({
+  components: { payment, addpayment, },
     name:'db',
      data() {
     return {
