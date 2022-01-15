@@ -1,5 +1,7 @@
+
 <template>
   <div class="wrapper">
+    <!-- // props не прокидывается до modalwindow -->
     <header>
       <router-link to="/Dashboard"
         >добавить платеж категории Food с ценой 200</router-link
@@ -14,7 +16,7 @@
     </header>
     <main>
       <router-view />
-<modalwindow v-if="addFormShow" :settings="settings"/>
+<modalwindow v-if="componentName" :settings="settings"/>
       <payment :items="paymentsList" />
      
       
@@ -36,7 +38,7 @@ export default {
       show: true,
       page: "",
       settings: {
-  
+
       },
   addFormShow:true,
       componentName:""
@@ -76,11 +78,11 @@ export default {
         },
       ];
     },
-    OnShow(name,settings){
+    OnShow({name,settings}){
 
      this.componentName=name;
      this.settings=settings
-      
+  
 
     },
     onClosed(){
@@ -97,11 +99,11 @@ export default {
 
     this.setPage();
   },
-  beforeDestroy(){
-     this.$modal.EventBus.$off("show");
-    this.$modal.EventBus.$off("close");
+  // beforeDestroy(){
+  //    this.$modal.EventBus.$off("show");
+  //   this.$modal.EventBus.$off("close");
 
-  },
+  // },
 
   created() {
     this.$store.dispatch("fetchData");

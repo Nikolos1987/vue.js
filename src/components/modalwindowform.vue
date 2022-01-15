@@ -17,7 +17,7 @@ import AddPaymentForm from "./addPayment.vue";
 
 export default {
   props: {
-    settings: Object,
+    settings: {}
   },
   components: {
     AddPaymentForm,

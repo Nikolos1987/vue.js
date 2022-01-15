@@ -50,8 +50,8 @@ export default {
     },
     openModal() {
       this.$modal.show("dashboard", {
-        content: "addPayment",
-        header: "add new cost",
+        content: "addPaymentForm",
+        header:"add new cost",
       });
     },
   },
