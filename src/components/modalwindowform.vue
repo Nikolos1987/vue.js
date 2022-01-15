@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     onclickClose() {
-      this.$emit("close");
+      this.$modal.hide();
     },
   },
 };
